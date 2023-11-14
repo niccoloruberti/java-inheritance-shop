@@ -1,24 +1,107 @@
 package org.lessons.java.shop;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Carrello {
 
 	public static void main(String[] args) {
 		
-		Smartphone s1 = new Smartphone(233423, "t1", "desc1", 23.39, 22, "234539523", 32);
+//		Smartphone s1 = new Smartphone(233423, "t1", "desc1", 23.39, 22, "234539523", 32);
+//		
+//		Televisori t1 = new Televisori(34234, "t1", "desc1", 399, 22, 34, true);
+//		
+//		Cuffie c1 = new Cuffie(34455, "c1", "desc1", 199.99, 22, "blu", false);
 		
-		Televisori t1 = new Televisori(34234, "t1", "desc1", 399, 22, 34, true);
+		Scanner in = new Scanner(System.in);
 		
-		Cuffie c1 = new Cuffie(34455, "c1", "desc1", 199.99, 22, "blu", false);
+		Prodotto[] prodotti = new Prodotto[10];
 		
-		System.out.println(s1);
-		System.out.println(t1);
-		System.out.println(c1);
+		int i = 0;
 		
-		//Scanner in = new Scanner(System.in);
+		while (true) {
+			
+			System.out.println("Vuoi inserire un elemento? si/no");
+			String ansUser = in.nextLine();
+			
+			if (ansUser.equals("si")) {
+				
+				//domande generiche
+				System.out.println("Che elemento vuoi inserire? telefono/televisore/cuffie");
+				String prodUser = in.nextLine();
+				
+				System.out.println("inserisci il codice: ");
+				int codiceUser = in.nextInt();
+				in.nextLine();
+				
+				System.out.println("Inserisi il nome: ");
+				String nomeUser = in.nextLine();
+				
+				System.out.println("Inserisci la descrizione: ");
+				String descUser = in.nextLine();
+				
+				System.out.println("Inserisci il prezzo: ");
+				double prezzoUser = in.nextDouble();
+				in.nextLine();
+				
+				System.out.println("Inserisci l'iva: ");
+				int ivaUser = in.nextInt();
+				in.nextLine();
+				
+					if (prodUser.equals("telefono")) {
+						
+						//telefono
+						System.out.println("Inserisci l'IMEI: ");
+						String userIMEI = in.nextLine();
+						
+						System.out.println("Inserisci la capacità di memoria: ");
+						int userMemoria = in.nextInt();
+						in.nextLine();
+						
+						prodotti[i] = new Smartphone(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, userIMEI, userMemoria);
+						
+						i++;
+						
+					} else if (prodUser.equals("televisore")) {
+						
+						//televisore
+						System.out.println("Inserisci le dimensioni: (numero di pollici");
+						int dimensioniUser = in.nextInt();
+						in.nextLine();
+						
+						System.out.println("Il televisore è smart? si/no");
+						boolean smartUser = (in.nextLine().equals("si")) ? true : false;
+						
+						prodotti[i] = new Televisori(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, dimensioniUser, smartUser);
+						
+						i++;
+						
+					} else {
+						
+						//cuffie
+						System.out.println("Inserisci il colore delle cuffie: ");
+						String coloreUser = in.nextLine();
+						
+						System.out.println("le cuffie sono wireless? si/no");
+						boolean wirelessUser = (in.nextLine().equals("si")) ? true : false;
+						
+						prodotti[i] = new Cuffie(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, coloreUser, wirelessUser);
+						
+						i++;
+						
+					}
+				
+				
+				} else {
+					
+					System.out.println(Arrays.asList(prodotti));
+					break;
+					
+				}
+		}
 		
-		//System.out.println("Vuoi inserire un elemento?");
+		
+
 	}
 
 }
