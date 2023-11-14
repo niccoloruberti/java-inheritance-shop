@@ -90,7 +90,6 @@ public class Prodotto {
 				+ "iva: " + getIva() + "%\n"
 				+ "prezzo ivato: " + String.format("%.02f", getPrezzoIvato()) + "€\n"
 				+ "nome completo: " + getNomeEsteso() + "\n"
-				+ "codice con pad left: " + getCodicePad() + "\n"
-				+ "----------";
+				+ "codice con pad left: " + getCodicePad() + "\n";
 	}
 }
