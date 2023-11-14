@@ -19,6 +19,11 @@ public class Carrello {
 		
 		int i = 0;
 		
+		boolean fedelta = false;
+		
+		System.out.println("Hai la tessera fedeltà? si/no");
+		fedelta = in.nextLine().equalsIgnoreCase("si");
+		
 		while (true) {
 			
 			System.out.println("Vuoi inserire un elemento? si/no");
@@ -58,7 +63,7 @@ public class Carrello {
 						int userMemoria = in.nextInt();
 						in.nextLine();
 						
-						prodotti[i] = new Smartphone(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, userIMEI, userMemoria);
+						prodotti[i] = new Smartphone(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, fedelta, userIMEI, userMemoria);
 						
 						i++;
 						
@@ -72,7 +77,7 @@ public class Carrello {
 						System.out.println("Il televisore è smart? si/no");
 						boolean smartUser = (in.nextLine().equals("si")) ? true : false;
 						
-						prodotti[i] = new Televisori(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, dimensioniUser, smartUser);
+						prodotti[i] = new Televisori(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, fedelta,  dimensioniUser, smartUser);
 						
 						i++;
 						
@@ -85,7 +90,7 @@ public class Carrello {
 						System.out.println("le cuffie sono wireless? si/no");
 						boolean wirelessUser = (in.nextLine().equals("si")) ? true : false;
 						
-						prodotti[i] = new Cuffie(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, coloreUser, wirelessUser);
+						prodotti[i] = new Cuffie(codiceUser, nomeUser, descUser, prezzoUser, ivaUser, fedelta,  coloreUser, wirelessUser);
 						
 						i++;
 						
@@ -94,7 +99,21 @@ public class Carrello {
 				
 				} else {
 					
-					System.out.println(Arrays.asList(prodotti));
+					double prezzoTotale = 0;
+					
+					for (int x=0; x < i; x++) {
+						System.out.println(prodotti[x]);
+						
+						if(fedelta) {
+						prezzoTotale += prodotti[x].getPrezzoScontato();
+						} else {
+							prezzoTotale += prodotti[x].getPrezzoIvato();
+						}
+					
+					}
+					
+					System.out.println("Il prezzo totale è: " + String.format("%.2f", prezzoTotale) + "€");
+					
 					break;
 					
 				}

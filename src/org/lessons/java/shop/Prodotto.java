@@ -7,14 +7,16 @@ public class Prodotto {
 	private String descrizione;
 	private double prezzo;
 	private int iva;
+	private boolean fedelta;
 	
-	public Prodotto (int codice, String nome, String descrizione, double prezzo, int iva) {
+	public Prodotto (int codice, String nome, String descrizione, double prezzo, int iva, boolean fedelta) {
 		
 		setCodice(codice);
 		setNome(nome);
 		setDescrizione(descrizione);
 		setPrezzo(prezzo);
 		setIva(iva);
+		setFedelta(fedelta);
 		
 	}
 	
@@ -58,8 +60,16 @@ public class Prodotto {
 		this.iva = iva;
 	}
 	
+	public boolean isFedelta() {
+		return fedelta;
+	}
+
+	public void setFedelta(boolean fedelta) {
+		this.fedelta = fedelta;
+	}
+
 	public double getPrezzoIvato() {
-		return prezzo = prezzo + (prezzo / 100 * iva);
+		return prezzo + (prezzo / 100 * iva);
 	}
 	
 	public String getNomeEsteso() {
@@ -79,17 +89,42 @@ public class Prodotto {
 		return codiceStr;
 	}
 	
+	public double getPrezzoScontato() {
+	 
+	        if (this instanceof Smartphone) {
+	            Smartphone smartphone = (Smartphone) this;
+	            if (smartphone.getMemoria() < 32) {
+	                return getPrezzoIvato() * 0.95;
+	            }
+	        } else if (this instanceof Televisori) {
+	            Televisori televisore = (Televisori) this;
+	            if (!televisore.isSmart()) {
+	                return getPrezzoIvato() * 0.93;
+	            }
+	        } else if (this instanceof Cuffie) {
+	            Cuffie cuffie = (Cuffie) this;
+	            if (!cuffie.isWireless()) {
+	                return getPrezzoIvato() * 0.90;
+	            }
+	        }
+
+	        return getPrezzo() * 0.98; 
+
+	}
+	
 	@Override
 	public String toString() {
-		
-		return "Prodotto:\n"
-				+ "codice: " + getCodice() + "\n"
-				+ "nome: " + getNome() + "\n"
-				+ "descrizione: " + getDescrizione() + "\n"
-				+ "prezzo: " + getPrezzo() + "€\n"
-				+ "iva: " + getIva() + "%\n"
-				+ "prezzo ivato: " + String.format("%.02f", getPrezzoIvato()) + "€\n"
-				+ "nome completo: " + getNomeEsteso() + "\n"
-				+ "codice con pad left: " + getCodicePad() + "\n";
+	    return "Prodotto:\n"
+        + "codice: " + getCodice() + "\n"
+        + "nome: " + getNome() + "\n"
+        + "descrizione: " + getDescrizione() + "\n"
+        + "prezzo: " + getPrezzo() + "€\n"
+        + "iva: " + getIva() + "%\n"
+        + "prezzo ivato: " + String.format("%.02f", getPrezzoIvato()) + "€\n"
+        + "nome completo: " + getNomeEsteso() + "\n"
+        + "codice con pad left: " + getCodicePad() + "\n"
+        + (isFedelta()? ("il prezzo scontato e' di: " + String.format("%.02f", getPrezzoScontato())+ "€"):("")) + "\n";
+	    
 	}
+	
 }
